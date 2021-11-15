@@ -1,8 +1,6 @@
 package com.proyecto.Jakarton.controller;
 
 import com.proyecto.Jakarton.DAO.*;
-import com.proyecto.Jakarton.sopa.Common;
-import com.proyecto.Jakarton.sopa.Sopa;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

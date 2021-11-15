@@ -1,6 +1,5 @@
 package com.proyecto.Jakarton.DAO;
 
-import javax.swing.*;
 import java.sql.*;
 
 /**
@@ -10,11 +9,11 @@ import java.sql.*;
 public class SQLConexion {
 	
 	// CAMPOS
-	private static final String url = "jdbc:mysql://localhost:3306/";
-	private static final String dbName = "Sopa";
-	private static final String driver = "com.mysql.cj.jdbc.Driver";
-	private static final String userName = "root";
-	private static final String password = "root";
+	private final String url = "jdbc:mysql://localhost:3306/?useSSL=false";
+	private final String dbName = "Sopa";
+	private final String driver = "com.mysql.cj.jdbc.Driver";
+	private final String userName = "root";
+	private final String password = "root";
 		
     public Connection conexion;
     public PreparedStatement sentencia;
@@ -25,10 +24,9 @@ public class SQLConexion {
 		String databaseName = "";
 		Boolean dbCheck = false;
 	 try {
-		 
+
 	 Class.forName( driver );
 	 conexion = DriverManager.getConnection(url,userName,password);
-	 
 	 resultado = conexion.getMetaData().getCatalogs();
 	 while (resultado.next() && !dbCheck) {
 		  // Get the database name, which is at position 1
@@ -101,8 +99,8 @@ public class SQLConexion {
 			sentencia = conexion.prepareStatement("USE "+dbName+";");
 		    sentencia.executeUpdate();
 		}
-	 } catch (ClassNotFoundException | SQLException ex) {
-	 JOptionPane.showMessageDialog(null,ex.getMessage(), "Excepcion", JOptionPane.ERROR_MESSAGE);
+	 } catch (Exception ex) {
+
 	 }
 	 return dbCheck;
 	}
@@ -118,11 +116,6 @@ public class SQLConexion {
 	 }
 	 catch (SQLException ex) {
 
-	System.out.println("Error!!!!!!!");
-		 ex.printStackTrace();
-
-	 JOptionPane.showMessageDialog(null,ex.getMessage(), "Excepcion", JOptionPane.ERROR_MESSAGE);
-	 System.exit(1);
 	 }
 	 }
 	 public Connection getConnection(){

@@ -103,10 +103,10 @@ public class Sopa {
         }
     }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]){
+
+     // @param args the command line arguments
+
+    public void crearJuego(){
 
         /*
     	Juego juego = juegoDAO.getJuego();
@@ -119,12 +119,6 @@ public class Sopa {
         visualizarUsuarios();
         */
 
-        try {
-            SQLConexion sqlConexion = new SQLConexion();
-            sqlConexion.ConectarBasedeDatos();
-            sqlConexion.DesconectarBasedeDatos();
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
     }
+
 }

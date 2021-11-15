@@ -4,6 +4,7 @@ import com.proyecto.Jakarton.DAO.ListadoPalabras;
 import com.proyecto.Jakarton.DAO.ListadoUsuarios;
 
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
 
 
 /**
@@ -67,6 +68,17 @@ public class Juego {
 
         palabras.addPalabra(p);
         
+    }
+
+    /**
+     * Este metodo nos permite agregar una lista de palabras al Juego
+     *
+     * @param p Palabra.
+     */
+    public void add(ListadoPalabras p) {
+
+        this.palabras = p;
+
     }
     
     /**

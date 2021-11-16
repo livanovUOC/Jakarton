@@ -6,6 +6,7 @@
 <%@ page import="java.util.Locale" %>
 
 <%! ArrayList<Palabra> listaPalabras = null; %>
+<%! SQLJuegoDAO juegoDAO = null; %>
 
 <%
     /*
@@ -23,18 +24,18 @@
     FactoriaDAO sqlDAOFactory = FactoriaDAO.getDAOFactory(FactoriaDAO.SQL);
     SQLUsuarioDAO usuarioDAO = (SQLUsuarioDAO) sqlDAOFactory.getUsuarioDAO();
     SQLPalabraDAO palabraDAO = (SQLPalabraDAO) sqlDAOFactory.getPalabraDAO();
-    SQLJuegoDAO juegoDAO = (SQLJuegoDAO)sqlDAOFactory.getJuegoDAO();
+    juegoDAO = (SQLJuegoDAO)sqlDAOFactory.getJuegoDAO();
 
     Juego juego = juegoDAO.getJuego();
     Palabra nuevaPalabra = null;
     String palabra = "";
 
-    //listaPalabras = (ArrayList<Palabra>) palabraDAO.getPalabras().getListadoPalabras();
+    listaPalabras = (ArrayList<Palabra>) palabraDAO.getPalabras().getListadoPalabras();
     juego.add(palabraDAO.getPalabras());
 
     listaPalabras = (ArrayList<Palabra>) juego.getPalabras().getListadoPalabras();
 
-    if(listaPalabras == null) {
+    if(listaPalabras == null || listaPalabras.size() == 0) {
         palabra = "oca";
         nuevaPalabra = new Palabra(palabra, palabra.length(), 0, 0, 0);
         palabraDAO.crearElemento(nuevaPalabra);
@@ -43,6 +44,12 @@
         palabraDAO.crearElemento(nuevaPalabra);
         palabra = "tuerca";
         nuevaPalabra = new Palabra(palabra, palabra.length(), 2, 0, 0);
+        palabraDAO.crearElemento(nuevaPalabra);
+        palabra = "cal";
+        nuevaPalabra = new Palabra(palabra, palabra.length(), 5, 3, 0);
+        palabraDAO.crearElemento(nuevaPalabra);
+        palabra = "coca";
+        nuevaPalabra = new Palabra(palabra, palabra.length(), 4, 1, 1);
         palabraDAO.crearElemento(nuevaPalabra);
     }
 
@@ -53,6 +60,10 @@
     <title>Sopa de Letras</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <style type="text/css">
+        ul, li{
+            list-style: none;
+        }
+
         #sopa{
             margin: auto;
 
@@ -90,108 +101,44 @@
 <div id="sopa">
     <div id="contenedor">
         <%
+            if(listaPalabras != null || listaPalabras.size() > 0) {
 
-            if(listaPalabras != null) {
-                String aux = listaPalabras.get(0).getPalabra().toUpperCase();
-                out.println("<div class=\"caja " + aux.toLowerCase() + "\"><strong>" + aux.charAt(0) + "</strong></div>");
-                out.println("<div class=\"caja " + aux.toLowerCase() + "\"><strong>" + aux.charAt(1) + "</strong></div>");
-                out.println("<div class=\"caja " + aux.toLowerCase() + "\"><strong>" + aux.charAt(2) + "</strong></div>");
+                String ppp = juego.printTablero();
+                out.println(ppp);
             }
-
         %>
 
-
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-        <div class="caja"><strong>A</strong></div>
-
     </div>
-    <div>
+
+
+    <h3 style="margin: auto; text-align: center;">
+        Listado de Palabras
+    </h3>
+    <ul style="margin: auto; text-align: center;">
+        <%
+            if(listaPalabras != null || listaPalabras.size() > 0) {
+
+                String result = "";
+
+                for(int w = 0; w < listaPalabras.size(); w++){
+                    result += "<li>" + listaPalabras.get(w) + "</li>\n";
+                }
+
+                out.println(result);
+            }
+        %>
+    </ul>
+
 
 
 
 
         <script type="text/javascript">
             $(document).ready(function(){
-                    $(".oca").hover(function(){
-                            $(".oca").addClass("resaltar");
-                        }
-                    );
+                    <%
+                     out.println(juego.getCode());
+                     %>
 
-                    $(".oca").mouseleave(function(){
-                            $(".oca").removeClass("resaltar");
-                        }
-                    );
-
-                    $(".oca").click(function(){
-                            $(".oca").css("color", "green");
-                        }
-                    );
                 }
             );
         </script>

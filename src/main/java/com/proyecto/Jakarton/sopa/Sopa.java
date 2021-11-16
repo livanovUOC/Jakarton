@@ -121,4 +121,30 @@ public class Sopa {
 
     }
 
+    public static void main(String [] args){
+        //Tablero tab = new Tablero();
+        Palabra nuevaPalabra = null;
+        Juego juego =  juegoDAO.getJuego();
+
+        ArrayList<Palabra> words = new ArrayList<Palabra>();
+        nuevaPalabra = new Palabra("Prueba", 6, 0, 0, 0);
+        words.add(nuevaPalabra);
+        juego.add(nuevaPalabra);
+        nuevaPalabra = new Palabra("Prueba", 6, 1, 0, 0);
+        words.add(nuevaPalabra);
+        juego.add(nuevaPalabra);
+        nuevaPalabra = new Palabra("Prueba", 6, 2, 0, 0);
+        words.add(nuevaPalabra);
+        juego.add(nuevaPalabra);
+        nuevaPalabra = new Palabra("Prueba", 6, 3, 0, 0);
+        words.add(nuevaPalabra);
+        juego.add(nuevaPalabra);
+
+
+        //System.out.println(juego.printTablero());
+
+
+
+    }
+
 }

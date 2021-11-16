@@ -1,7 +1,11 @@
 package com.proyecto.Jakarton.sopa;
 
+import com.proyecto.Jakarton.DAO.ListadoPalabras;
+import com.proyecto.Jakarton.DAO.ListadoUsuarios;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
 *
@@ -13,7 +17,7 @@ public class Tablero {
     private int filas;
     private int columnas;
     private char[][] tablero;
-    ArrayList<Palabra> palabras;
+    public ArrayList<Palabra> palabras;
     
  // CONSTRUCTORES
     
@@ -23,6 +27,7 @@ public class Tablero {
     public Tablero()
     {
         super();
+        this.palabras = new ArrayList<Palabra>();
     }
 
     /**
@@ -35,6 +40,7 @@ public class Tablero {
      	this.filas = filas;
      	this.columnas = columnas;
      	this.tablero = new char[filas][columnas];
+        this.palabras = new ArrayList<Palabra>();
      	
      	// Inicializo el tablero
      	initTablero();
@@ -44,11 +50,41 @@ public class Tablero {
      * Método privado para inicializar el tablero
     */
     private void initTablero() {
-       for (char[] cs : tablero) {
-       		for (char c : cs) {
-       			c = ' ';	// Se define ' ' como char por defecto
-       		}
-       }
+        for (int f=0;f<filas;f++) {
+            for (int c=0;c<columnas;c++) {
+                tablero[f][c] = ' ';
+            }
+        }
+    }
+
+    /**
+     * Método público para imprimir el tablero
+     */
+    public char[][] printTablero() {
+        initTablero();
+
+        ArrayList<Palabra> listaPalabras = palabras;
+        Palabra word = null;
+
+        for (int i=0;i<listaPalabras.size();i++) {
+            word = listaPalabras.get(i);
+            escribirPalabra(word);
+        }
+
+        Random random = null;
+        char randomizedCharacter = ' ';
+
+        for (int f=0;f<filas;f++) {
+            for (int c=0;c<columnas;c++) {
+                if(Character.compare(tablero[f][c], ' ') == 0){
+                    random = new Random();
+
+                    tablero[f][c] = (char) (random.nextInt(26) + 'A');
+                }
+            }
+        }
+
+        return this.tablero;
     }
     
     /**
@@ -97,6 +133,20 @@ public class Tablero {
     	// Pendiente de acabar
     	  
     	  Boolean result = checkWord(palabra);
+    	  int x = palabra.getCoodX();
+          int y = palabra.getCoodY();
+          int sentido = palabra.getDireccion();
+
+    	  for(int i=0;i<palabra.getLongitud();i++){
+    	      if(sentido == 0){
+    	          tablero[x][y] = palabra.getPalabra().toUpperCase().charAt(i);
+    	          y += 1;
+              }
+    	      else{
+                  tablero[x][y] = palabra.getPalabra().toUpperCase().charAt(i);
+                  x += 1;
+              }
+          }
     	  
           return result;	
       }
@@ -110,5 +160,23 @@ public class Tablero {
      	 initTablero();
      	 palabras = null;
      }
+
+    /**
+     * Método de acceso de lectura
+     *
+     * @return devuelve número de filas
+     */
+    public int getFilas() {
+        return filas;
+    }
+
+    /**
+     * Método de acceso de lectura
+     *
+     * @return devuelve número de columnas
+     */
+    public int getColumnas() {
+        return columnas;
+    }
      
 }

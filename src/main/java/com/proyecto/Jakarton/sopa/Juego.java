@@ -7,23 +7,24 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 
 
+
 /**
 *
 * @author Lucian, Javier, Pol, Oriol, Chadouli
 */
 @XmlRootElement(name = "juego")
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
-@XmlType(propOrder={"idUsuario", "nombre", "apellidos", "email", "password"})
+//@XmlType(propOrder={"idUsuario", "nombre", "apellidos", "email", "password"})
 
 public class Juego {
-	
+    private String nombre;
+    private ListadoUsuarios usuarios;
+    private ListadoPalabras palabras;
+    private Tablero tablero;
+
 	public static int lastIndexUser = 0;
 	public static int lastIndexWord = 0;
 	public static Sesion sesion = null;
-	
-	private String nombre;
-	private ListadoUsuarios usuarios;
-	private ListadoPalabras palabras;
 	
 	// CONSTRUCTORES
     
@@ -31,7 +32,7 @@ public class Juego {
 	 * Constructor básico
 	 */
 	public Juego() {
-		
+        this.tablero = new Tablero(8, 8);
 	}
 		
 	/**
@@ -46,8 +47,9 @@ public class Juego {
 		this.nombre = nombre;
 		this.usuarios = u;
 		this.palabras = p;
+		this.tablero = new Tablero(8, 8);
 	}
-	
+
 	/**
      * Este metodo nos permite agregar un usuario al Juego
      * 
@@ -136,5 +138,77 @@ public class Juego {
      */
     public ListadoPalabras getPalabras() {
         return palabras;
+    }
+
+    /**
+     * Método que devuelve el código Jquery para que funcione el tablero
+     *
+     * @return devuelve listado de palabras del Juego
+     */
+    public String getCode() {
+        ArrayList<Palabra> listaPalabras = (ArrayList<Palabra>) this.getPalabras().getListadoPalabras();
+
+        String codigo = "";
+        int columnas = tablero.getColumnas();
+        int indice = 0;
+        String word = "";
+        for (int i=0;i<listaPalabras.size();i++) {
+            indice = listaPalabras.get(i).getCoodX() * columnas + listaPalabras.get(i).getCoodY();
+            word = listaPalabras.get(i).getPalabra().toLowerCase();
+            for(int index = 0; index< listaPalabras.get(i).getLongitud(); index++) {
+                codigo += "$(\".caja:eq(" + indice + ")\").addClass(\"" + word + "\");" + "\n";
+                if(listaPalabras.get(i).getDireccion() == 0) {
+                    indice++;
+                }
+                else{
+                    indice += columnas;
+                }
+
+            }
+            codigo += "$(\"." + word + "\").hover(function(){" + "\n";
+            codigo += "$(\"." + word + "\").addClass(\"resaltar\");" + "\n";
+            codigo += "}" + "\n";
+            codigo += ");" + "\n";
+            codigo += "\n\n";
+
+            codigo += "$(\"." + word + "\").mouseleave(function(){" + "\n";
+            codigo += "$(\"." + word + "\").removeClass(\"resaltar\");" + "\n";
+            codigo += "}" + "\n";
+            codigo += ");" + "\n";
+            codigo += "\n\n";
+
+            codigo += "$(\"." + word + "\").click(function(){" + "\n";
+            codigo += "$(\"." + word + "\").css(\"color\", \"green\");" + "\n";
+            codigo += "}" + "\n";
+            codigo += ");" + "\n";
+            codigo += "\n" + "\n";
+        }
+
+        return codigo;
+    }
+
+    public String holaMundo(){
+        return "hola Mundo";
+    }
+
+    /**
+     * Método público para imprimir el tablero
+     */
+    public String printTablero() {
+        String codigo = "";
+        tablero.palabras = (ArrayList<Palabra>) palabras.getListadoPalabras();
+        char[][] tab = tablero.printTablero();
+        int filas = tablero.getFilas();
+        int columnas = tablero.getColumnas();
+
+
+        for (int f=0;f<filas;f++) {
+            for (int c=0;c<columnas;c++) {
+                codigo += "<div class=\"caja\"><strong>" + tab[f][c] + "</strong></div>\n";
+            }
+            codigo += "\n";
+            codigo += "\n";
+        }
+        return codigo;
     }
 }

@@ -165,20 +165,21 @@ public class Juego {
                 }
 
             }
-            codigo += "$(\"." + word + "\").hover(function(){" + "\n";
-            codigo += "$(\"." + word + "\").addClass(\"resaltar\");" + "\n";
+            codigo += "$(\"div." + word + "\").hover(function(){" + "\n";
+            codigo += "$(\"div." + word + "\").addClass(\"resaltar\");" + "\n";
             codigo += "}" + "\n";
             codigo += ");" + "\n";
             codigo += "\n\n";
 
-            codigo += "$(\"." + word + "\").mouseleave(function(){" + "\n";
-            codigo += "$(\"." + word + "\").removeClass(\"resaltar\");" + "\n";
+            codigo += "$(\"div." + word + "\").mouseleave(function(){" + "\n";
+            codigo += "$(\"div." + word + "\").removeClass(\"resaltar\");" + "\n";
             codigo += "}" + "\n";
             codigo += ");" + "\n";
             codigo += "\n\n";
 
-            codigo += "$(\"." + word + "\").click(function(){" + "\n";
-            codigo += "$(\"." + word + "\").css(\"color\", \"green\");" + "\n";
+            codigo += "$(\"div." + word + "\").click(function(){" + "\n";
+            codigo += "$(\"div." + word + "\").css(\"color\", \"green\");" + "\n";
+            codigo += "$(\"span." + word + "\").css(\"text-decoration\", \"line-through\");" + "\n";
             codigo += "}" + "\n";
             codigo += ");" + "\n";
             codigo += "\n" + "\n";

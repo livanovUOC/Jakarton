@@ -107,7 +107,6 @@
                 out.println(ppp);
             }
         %>
-
     </div>
 
 
@@ -119,9 +118,11 @@
             if(listaPalabras != null || listaPalabras.size() > 0) {
 
                 String result = "";
+                Palabra word = null;
 
                 for(int w = 0; w < listaPalabras.size(); w++){
-                    result += "<li>" + listaPalabras.get(w) + "</li>\n";
+                    word =  listaPalabras.get(w);
+                    result += "<li><span class=\"" + word.getPalabra() + "\">" + word + "</span></li>\n";
                 }
 
                 out.println(result);
@@ -138,7 +139,27 @@
                     <%
                      out.println(juego.getCode());
                      %>
+                function sayHi() {
+                    var result=false;
+                    var consulta = "";
+                    var nlista=$('span').length;
 
+                    for(i=0;i<nlista;i++){
+                        consulta = $('span').eq(i).css("text-decoration");
+                        if(consulta == "none solid rgb(0, 0, 0)"){
+                            result = true;
+                            break;
+                        }
+                    }
+
+                    if(!result){
+                        alert("Juego Conseguido");
+                        window.history.back();
+                        //setTimeout(function(){window.history.back();}, 3000);
+                    };
+                }
+
+                setInterval(sayHi, 5000);
                 }
             );
         </script>
